@@ -7,12 +7,40 @@
   --font-serif: var(--font-serif);
 }
 
+/* ─── palette ────────────────────────────────────────────────────────
+   Espresso / Mocha / Stone / Mellow / Ivory with a Dark Goldenrod
+   accent. The Tailwind `orange` and `neutral` scales are remapped here,
+   so every `text-orange-400`, `bg-neutral-…` etc. across the app picks
+   up the warm palette without touching call sites.
+     espresso #0F0F05 · black #060906 · mocha #3E2614
+     stone #655A4C · mellow #AA9E90 · linen #EAE4D6 · ivory #F8F4EE
+     goldenrod #C08736 */
+@theme {
+  /* accent scale → dark goldenrod */
+  --color-orange-200: #ecd9b4;
+  --color-orange-300: #ddb877;
+  --color-orange-400: #c08736;
+  --color-orange-500: #a8742b;
+  --color-orange-600: #8a5e20;
+  /* neutral scale → warm ivory/stone */
+  --color-neutral-50: #f8f4ee;
+  --color-neutral-100: #f1ece2;
+  --color-neutral-200: #eae4d6;
+  --color-neutral-300: #cfc6b6;
+  --color-neutral-400: #aa9e90;
+  --color-neutral-500: #8a7f70;
+  --color-neutral-600: #655a4c;
+  --color-neutral-700: #4a4138;
+  --color-neutral-800: #2c2519;
+  --color-neutral-900: #18140c;
+}
+
 /* ─── foundation ─────────────────────────────────────────────────────
    Layered near-black base: a faint emerald glow falling from the top,
    a cool counter-glow at the bottom, and a fine grain overlay so large
    dark areas read as material instead of flat #000. */
 :root {
-  --ink: #e7e9ea;
+  --ink: #f1ece2;
   --surface-hi: rgba(255, 255, 255, 0.045);
   --surface-lo: rgba(255, 255, 255, 0.015);
   --edge: rgba(255, 255, 255, 0.08);
@@ -32,11 +60,11 @@ html {
 body {
   color: var(--ink);
   font-family: var(--font-sans);
-  background-color: #0a0b0c;
+  background-color: #060906;
   background-image:
-    radial-gradient(1100px 520px at 72% -12%, rgba(249, 115, 22, 0.075), transparent 62%),
-    radial-gradient(900px 480px at -8% 112%, rgba(59, 130, 246, 0.045), transparent 60%),
-    linear-gradient(180deg, #0c0d0f 0%, #0a0b0c 38%);
+    radial-gradient(1100px 520px at 72% -12%, rgba(192, 135, 54, 0.07), transparent 62%),
+    radial-gradient(900px 480px at -8% 112%, rgba(62, 38, 20, 0.5), transparent 60%),
+    linear-gradient(180deg, #0f0f05 0%, #060906 38%);
   background-attachment: fixed;
 }
 
@@ -89,14 +117,14 @@ body::after {
 /* ─── controls ──────────────────────────────────────────────────────── */
 .btn-primary {
   border-radius: 10px;
-  color: #2a1206;
+  color: #1a1206;
   font-weight: 600;
-  background: linear-gradient(180deg, #fb923c, #f97316 55%, #ea580c);
+  background: linear-gradient(180deg, #d8a050, #c08736 55%, #9c6c28);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
     inset 0 -1px 0 rgba(0, 0, 0, 0.2),
     0 1px 2px rgba(0, 0, 0, 0.5),
-    0 10px 24px -10px rgba(249, 115, 22, 0.55);
+    0 10px 24px -10px rgba(192, 135, 54, 0.55);
   transition: filter 0.12s ease, transform 0.06s ease, box-shadow 0.12s ease;
 }
 .btn-primary:hover:not(:disabled) {
@@ -107,7 +135,7 @@ body::after {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
     0 1px 2px rgba(0, 0, 0, 0.5),
-    0 4px 12px -6px rgba(249, 115, 22, 0.4);
+    0 4px 12px -6px rgba(192, 135, 54, 0.4);
 }
 .btn-primary:disabled {
   opacity: 0.35;
@@ -115,14 +143,14 @@ body::after {
 
 /* warm accent — mirrors .btn-primary, kept as an alias for the landing page */
 .btn-accent {
-  color: #2a1206;
+  color: #1a1206;
   font-weight: 600;
-  background: linear-gradient(180deg, #fb923c, #f97316 55%, #ea580c);
+  background: linear-gradient(180deg, #d8a050, #c08736 55%, #9c6c28);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
     inset 0 -1px 0 rgba(0, 0, 0, 0.2),
     0 1px 2px rgba(0, 0, 0, 0.5),
-    0 10px 24px -10px rgba(249, 115, 22, 0.55);
+    0 10px 24px -10px rgba(192, 135, 54, 0.55);
   transition: filter 0.12s ease, transform 0.06s ease;
 }
 .btn-accent:hover:not(:disabled) {
@@ -133,10 +161,10 @@ body::after {
 }
 
 .accent-fill {
-  background: linear-gradient(180deg, #fb923c, #ea580c);
+  background: linear-gradient(180deg, #d8a050, #9c6c28);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 0 12px rgba(249, 115, 22, 0.35);
+    0 0 12px rgba(192, 135, 54, 0.35);
   border-radius: inherit;
 }
 
@@ -150,10 +178,10 @@ body::after {
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .input-surface:focus-within {
-  border-color: rgba(249, 115, 22, 0.45);
+  border-color: rgba(192, 135, 54, 0.45);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 0 0 3px rgba(249, 115, 22, 0.12),
+    0 0 0 3px rgba(192, 135, 54, 0.12),
     0 12px 32px -16px rgba(0, 0, 0, 0.8);
 }
 
@@ -165,10 +193,10 @@ body::after {
 
 /* funnel / progress fill: lit from above, faint emerald bloom */
 .bar-fill {
-  background: linear-gradient(180deg, #fb923c, #ea580c);
+  background: linear-gradient(180deg, #d8a050, #9c6c28);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 0 12px rgba(249, 115, 22, 0.35);
+    0 0 12px rgba(192, 135, 54, 0.35);
   border-radius: inherit;
 }
 
@@ -178,12 +206,12 @@ body::after {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8b9096;
+  color: #9a8f80;
 }
 
 /* shimmering text for the live "working" status */
 .shimmer {
-  background: linear-gradient(90deg, #6b7280 0%, #e5e7eb 50%, #6b7280 100%);
+  background: linear-gradient(90deg, #8a7f70 0%, #eae4d6 50%, #8a7f70 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -203,4 +231,4 @@ body::after {
 }
 
 /* smoother default scrollbar in the dark UI */
-* { scrollbar-width: thin; scrollbar-color: #3a3d42 transparent; }
+* { scrollbar-width: thin; scrollbar-color: #4a4138 transparent; }

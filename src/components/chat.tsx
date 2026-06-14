@@ -18,6 +18,7 @@ const STEP_LABEL: Record<string, string> = {
   lookup_customer: "Looking up the customer",
   get_sales: "Crunching sales numbers",
   get_analytics: "Reviewing performance",
+  pick_coupon: "Fetching coupon codes",
   propose_campaign: "Drafting the campaign",
 };
 
@@ -41,6 +42,15 @@ export function Chat({ sessionId }: { sessionId?: number }) {
   // Stick to the bottom only while the user is already there — never hijack
   // the scroll position while they're reading earlier messages.
   const stickToBottom = useRef(true);
+
+  // Artifact cards (e.g. the coupon picker) send replies into the chat by
+  // dispatching this event — keeps cards decoupled from the chat internals.
+  const sendRef = useRef<(t: string) => void>(() => {});
+  useEffect(() => {
+    const onPrompt = (e: Event) => sendRef.current((e as CustomEvent<string>).detail);
+    window.addEventListener("aos:send-prompt", onPrompt);
+    return () => window.removeEventListener("aos:send-prompt", onPrompt);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -96,6 +106,11 @@ export function Chat({ sessionId }: { sessionId?: number }) {
     }
   }
 
+  // Keep the artifact bridge pointing at the freshest send (state included).
+  useEffect(() => {
+    sendRef.current = send;
+  });
+
   const empty = messages.length === 0;
 
   return (
@@ -137,8 +152,8 @@ export function Chat({ sessionId }: { sessionId?: number }) {
             <div className="fixed inset-x-0 bottom-0 z-30 transition-[left] duration-200 ease-out md:left-[var(--sidebar-w)]">
               <div className="mx-auto max-w-[1280px] px-6 md:px-10">
                 <div className="mx-auto max-w-4xl">
-                  <div className="pointer-events-none h-6 bg-gradient-to-t from-[#0a0b0c] to-transparent" />
-                  <div className="bg-[#0a0b0c] pb-4">
+                  <div className="pointer-events-none h-6 bg-gradient-to-t from-[#0b0a06] to-transparent" />
+                  <div className="bg-[#0b0a06] pb-4">
                     <Composer value={input} setValue={setInput} onSend={send} busy={busy} />
                     <p className="mt-2 text-center text-[11px] text-neutral-600">
                       AudienceOS can run segments and draft campaigns — you approve before anything sends.

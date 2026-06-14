@@ -26,6 +26,29 @@ const LINKS = [
       </svg>
     ),
   },
+  {
+    href: "/coupons",
+    label: "Coupons",
+    match: (p: string) => p.startsWith("/coupons"),
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 9a3 3 0 0 1 0 6v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-3a3 3 0 0 1 0-6V6a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v3Z" />
+        <path d="M13 5v2M13 17v2M13 11v2" />
+      </svg>
+    ),
+  },
+  {
+    href: "/import",
+    label: "Import",
+    match: (p: string) => p.startsWith("/import"),
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <path d="M7 10l5 5 5-5" />
+        <path d="M12 15V3" />
+      </svg>
+    ),
+  },
 ];
 
 export function Sidebar() {
@@ -61,7 +84,7 @@ export function Sidebar() {
   return (
     <aside
       style={{ width: "var(--sidebar-w)" }}
-      className="sticky top-0 hidden h-screen shrink-0 flex-col overflow-hidden border-r border-white/[0.06] bg-[#0e0f11]/80 transition-[width] duration-200 ease-out md:flex"
+      className="sticky top-0 hidden h-screen shrink-0 flex-col overflow-hidden border-r border-white/[0.06] bg-[#16130d]/80 transition-[width] duration-200 ease-out md:flex"
     >
       {/* logo + collapse toggle */}
       <div className={`flex px-3 pb-4 pt-5 ${collapsed ? "flex-col items-center gap-3" : "items-center gap-2.5"}`}>
@@ -133,6 +156,22 @@ export function Sidebar() {
         </>
       )}
       {(collapsed || sessions.length === 0) && <div className="flex-1" />}
+
+      {/* settings — pinned just above the footer */}
+      <div className="px-3 pb-2">
+        <NavItem
+          href="/settings"
+          collapsed={collapsed}
+          active={pathname.startsWith("/settings")}
+          icon={
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+          }
+          label="Settings"
+        />
+      </div>
 
       {!collapsed && (
         <div className="border-t border-white/[0.05] px-5 py-4 text-[11px] leading-relaxed text-neutral-600">
